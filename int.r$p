@@ -1,0 +1,8 @@
+/Tde/x/l/v/c/k /V3.10 /LC:\BC5\LIB +
+-v+ C:\BC5\LIB\c0c.obj+
+-v+ int.obj
+int.exe
+
+-v+ C:\BC5\LIB\bidsc.lib+
+-v+ C:\BC5\LIB\cc.lib
+

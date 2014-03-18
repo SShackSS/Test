@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <dos.h>
+
+
+static void interrupt (*oldvec)(...);
+
+
+void interrupt  VideoBIOSInterrupt(...)
+{
+		FILE *fp;
+      unsigned char ah_var;
+      unsigned char al_var;
+
+      asm
+      {
+	      mov ah_var, ah
+         mov al_var, al
+      }
+
+		if ((fp = fopen("ints.lst","a")) != NULL)
+      {
+			fprintf(fp,"ah = %X al = %X\n", ah_var, al_var);
+			fclose(fp);
+		}
+}
+
+
+int
+main()
+{
+	printf("Loaded");
+
+	oldvec = _dos_getvect(0x10);
+	_dos_setvect(0x10,VideoBIOSInterrupt);
+	_dos_keep(0, (_SS + 100 + (_SP/16) - _psp));
+
+	return 0;
+}
